@@ -1,0 +1,98 @@
+from datetime import datetime
+
+import pytest
+
+from hospital.bootstrap import bootstrap
+from hospital.domain.models.entities.patient import Patient
+from hospital.domain.models.value_objects.patient.birth_date import BirthDate
+from hospital.domain.models.value_objects.patient.national_id import NationalID
+from hospital.domain.models.value_objects.patient.patient_address import PatientAddress
+from hospital.domain.models.value_objects.patient.patient_id import PatientID
+from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
+from hospital.domain.models.value_objects.patient.patient_name import PatientName
+from hospital.service_layer.patient_services import register_new_patient
+from hospital.tests.conftest import session
+#from hospital.adapters.orm.models import PatientORM
+
+def test_repository_can_add_and_retrieve_patient(session):
+
+    session = bootstrap().session
+    repo = SqlAlchemyPatientRepository(session)
+
+    register_new_patient(
+        first_name="Annie",
+        last_name="Leonhart",
+        birth_date=datetime(1996, 10, 10),
+        national_id="000-00000000-3",
+        patient_address="52 1st Street, New York, NY, USA",
+        repo=repo,
+        id=3
+    )
+
+    retrieved = repo.get(PatientID(1))
+
+    assert isinstance(retrieved, Patient)
+    assert retrieved.name.first_name == "Eren"
+    assert retrieved.name.last_name == "Jaeger"
+
+    # Verify we can list all patients
+    all_patients = repo.list()
+    assert len(all_patients) >= 1
+
+    # Clean up after test
+    #repo.delete(PatientID(1))
+    session.commit()
+
+def test_repository_delete_patient(session):
+
+    session = bootstrap().session
+    repo = SqlAlchemyPatientRepository(session)
+
+    register_new_patient(
+        id=1,
+        first_name="Juan",
+        last_name="Santos",
+        birth_date=datetime(1996, 10, 10),
+        national_id="000-00000000-1",
+        patient_address="52 1st Street, New York, NY, USA",
+        repo=repo
+    )
+
+    assert repo.get(PatientID(1)) is not None
+    repo.delete(PatientID(1))
+    session.commit()
+    assert repo.get(PatientID(1)) is None
+
+def test_repository_do_not_add_the_same_patient_more_than_once(session):
+
+    existing_patient = Patient(
+        id=PatientID(1),
+        name=PatientName("Eren", "Jaeger"),
+        birth_date=BirthDate(datetime(1996,10,10)),
+        national_id=NationalID("000-0000000-1"),
+        patient_address=PatientAddress("52 1st Street, New York, NY, USA")
+    )
+
+    session = bootstrap().session
+    repo = SqlAlchemyPatientRepository(session, [existing_patient])
+
+    retrieved = repo.get(PatientID(1))
+
+    assert isinstance(retrieved, Patient)
+    assert retrieved.name.first_name == "Eren"
+    assert retrieved.name.last_name == "Jaeger"
+
+    # Verify we can list all patients
+    all_patients = repo.list()
+    assert len(all_patients) >= 1
+
+    with pytest.raises(ValueError, match="Patient ID already exists"):
+        register_new_patient(
+            id=1,
+            first_name="Eren",
+            last_name="Jaeger",
+            birth_date=datetime(1996, 10, 10),
+            national_id="000-00000000-1",
+            patient_address="52 1st Street, New York, NY, USA",
+            repo=repo
+        )
