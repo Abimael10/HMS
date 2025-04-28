@@ -5,7 +5,7 @@ from hospital.adapters.orm.main_adapter import start_mappers
 from hospital.adapters.orm.metadata import mapper_metadata
 from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
 #from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
-from hospital.service_layer.messagebus import MessageBus
+from hospital.service_layer.patients.messagebus import MessageBus
 #from hospital.tests.fakes.fake_patient_repository import FakePatientRepository
 from hospital.config import get_postgres_uri
 

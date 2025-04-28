@@ -4,8 +4,8 @@ from fastapi.testclient import TestClient
 
 from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
 from hospital.entrypoints.views.patients import create_patient
-from hospital.service_layer.commands import CreatePatientCommand
-from hospital.service_layer.messagebus import MessageBus
+from hospital.service_layer.patients.commands import CreatePatientCommand
+from hospital.service_layer.patients.messagebus import MessageBus
 from hospital.tests.conftest import session
 
 @pytest.fixture

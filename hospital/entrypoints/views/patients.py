@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
-from hospital.service_layer.commands import CreatePatientCommand, DeletePatientCommand, FindPatientCommand, \
+from hospital.service_layer.patients.commands import CreatePatientCommand, DeletePatientCommand, FindPatientCommand, \
     UpdatePatientInfoCommand
-from hospital.service_layer.messagebus import MessageBus
+from hospital.service_layer.patients.messagebus import MessageBus
 from hospital.bootstrap import bootstrap
 
 router = APIRouter()

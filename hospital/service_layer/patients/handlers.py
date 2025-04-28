@@ -4,7 +4,7 @@ from hospital.domain.models.value_objects.patient.national_id import NationalID
 from hospital.domain.models.value_objects.patient.patient_address import PatientAddress
 from hospital.domain.models.value_objects.patient.patient_id import PatientID
 from hospital.domain.models.value_objects.patient.patient_name import PatientName
-from hospital.service_layer.commands import DeletePatientCommand, CreatePatientCommand, FindPatientCommand, \
+from hospital.service_layer.patients.commands import DeletePatientCommand, CreatePatientCommand, FindPatientCommand, \
     UpdatePatientInfoCommand
 
 

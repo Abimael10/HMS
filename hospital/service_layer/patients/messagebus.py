@@ -1,6 +1,6 @@
-from hospital.service_layer.commands import CreatePatientCommand, DeletePatientCommand, FindPatientCommand, \
+from hospital.service_layer.patients.commands import CreatePatientCommand, DeletePatientCommand, FindPatientCommand, \
     UpdatePatientInfoCommand
-from hospital.service_layer.handlers import handle_create_patient, handle_delete_patient, handle_find_patient, \
+from hospital.service_layer.patients.handlers import handle_create_patient, handle_delete_patient, handle_find_patient, \
     handle_update_patient_info
 
 
