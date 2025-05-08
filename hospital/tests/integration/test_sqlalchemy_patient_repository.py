@@ -32,8 +32,8 @@ def test_repository_can_add_and_retrieve_patient(session):
     retrieved = repo.get(PatientID(1))
 
     assert isinstance(retrieved, Patient)
-    assert retrieved.name.first_name == "Eren"
-    assert retrieved.name.last_name == "Jaeger"
+    assert retrieved.name.first_name == "Annie"
+    assert retrieved.name.last_name == "Leonhart"
 
     # Verify we can list all patients
     all_patients = repo.list()

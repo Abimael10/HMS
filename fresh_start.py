@@ -51,4 +51,4 @@ if __name__ == "__main__":
     
     # Run the app with a specific port to avoid any conflicts
     print("Starting fresh instance of the app...")
-    uvicorn.run(app, host="0.0.0.0", port=8001, reload=False) 
+    uvicorn.run(app, host="0.0.0.0", port=8001, reload=False)
