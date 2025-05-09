@@ -10,6 +10,7 @@ router = APIRouter()
 def get_bus() -> MessageBus:
     return bootstrap()
 
+#Get client by national ID
 @router.get("/{national_id}", status_code=200)
 def get_patient(
         national_id: str,
@@ -25,6 +26,7 @@ def get_patient(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+#Create a new patient
 @router.post("/create_patient", status_code=201)
 def create_patient(
     cmd: CreatePatientCommand,
@@ -36,6 +38,7 @@ def create_patient(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+#Update existing patient info
 @router.put("/{id}", status_code=200)
 def update_patient(
         cmd: UpdatePatientInfoCommand,
@@ -49,6 +52,7 @@ def update_patient(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+#Delete existing patient
 @router.delete("/{id}", status_code=200)
 def delete_patient_by_id(
         id: int,
