@@ -10,13 +10,13 @@ from hospital.domain.models.value_objects.patient.patient_address import Patient
 from hospital.domain.models.value_objects.patient.patient_id import PatientID
 from hospital.domain.models.value_objects.patient.patient_name import PatientName
 
-def test_patient_valid_creation():
-    patient = Patient(PatientID(1), PatientName("Ana", "Lopez"), BirthDate(datetime(1996,10,10)), NationalID("000-00000000-1"), PatientAddress("52 1st Street, New York, NY, USA"))
+def test_patient_object_valid_creation():
+    patient = Patient(PatientName("Ana", "Lopez"), BirthDate(datetime(1996,10,10)), NationalID("000-00000000-1"), PatientAddress("52 1st Street, New York, NY, USA"))
 
     assert patient.name == PatientName("Ana", "Lopez")
 
-def test_locate_existing_patient():
-    patient = Patient(PatientID(1), PatientName("Ana", "Lopez"), BirthDate(datetime(1996,10,10)), NationalID("000-00000000-1"), PatientAddress("52 1st Street, New York, NY, USA"))
+def test_locate_existing_patient_object():
+    patient = Patient(PatientName("Ana", "Lopez"), BirthDate(datetime(1996,10,10)), NationalID("000-00000000-1"), PatientAddress("52 1st Street, New York, NY, USA"))
     bed = Bed(BedLabel("ROOM-303", "B"), is_reserved=False)
     admission = Admission("ADM-003", patient, bed)
 

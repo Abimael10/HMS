@@ -34,8 +34,7 @@ def test_registers_new_patient_successfully(session):
         birth_date=datetime(1996, 10, 10),
         national_id="000-00000000-1",
         patient_address="52 1st Street, New York, NY, USA",
-        repo=repo,
-        session=session
+        repo=repo
     )
 
     assert session.committed is True
@@ -61,8 +60,7 @@ def test_raises_error_if_patient_exists():
             birth_date=datetime(1996, 10, 10),
             national_id="000-00000000-1",
             patient_address="52 1st Street, New York, NY, USA",
-            repo=repo,
-            session=session
+            repo=repo
         )
 
 def test_delete_existing_patient(session):
@@ -70,20 +68,21 @@ def test_delete_existing_patient(session):
     repo = FakePatientRepository(session)
     #repo = SqlAlchemyPatientRepository(session)
 
-    register_new_patient_staging(
+    new_patient = register_new_patient_staging(
         id=1,
         first_name="Juan",
         last_name="Pérez",
         birth_date=datetime(1996, 10, 10),
         national_id="000-00000000-1",
         patient_address="52 1st Street, New York, NY, USA",
-        repo=repo,
-        session=session
+        repo=repo
     )
 
-    assert repo.get(PatientID(1)) is not None
-    assert repo.delete(PatientID(1)) is True
-    assert repo.get(PatientID(1)) is None
+    assert session.committed is True
+
+    assert repo.get(new_patient.id) is not None
+    assert repo.delete(new_patient.id) is True
+    assert repo.get(new_patient.id) is None
 
 def test_delete_nonexistent_patient():
     session = FakeSession

@@ -31,7 +31,7 @@ def register_new_patient(id: int, first_name: str, last_name: str, birth_date: d
     repo.session.commit()
     return new_patient
 
-def register_new_patient_staging(id: int, first_name: str, last_name: str, birth_date: date, national_id: str, patient_address: str, repo: AbstractRepository, session):
+def register_new_patient_staging(id: int, first_name: str, last_name: str, birth_date: date, national_id: str, patient_address: str, repo: AbstractRepository):
     if id is not None and repo.get(PatientID(id)):
         raise ValueError("Patient ID already exists")
         

@@ -22,5 +22,8 @@ class FakePatientRepository(AbstractRepository):
             return True
         return False
 
+    def get_by_national_id(self, national_id):
+        return next((p for p in self.patients if p.national_id == national_id), None)
+
     def list(self):
         return list(self.patients)
