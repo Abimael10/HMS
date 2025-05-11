@@ -1,10 +1,12 @@
 from hospital.domain.models.entities.patient import Patient
 from hospital.adapters.repository.patients.abstract_repository import AbstractRepository
-from hospital.adapters.orm.main_adapter import PatientORM
+from hospital.adapters.orm.main_adapter import PatientORM, start_mappers
+
 
 class SqlAlchemyPatientRepository(AbstractRepository):
     def __init__(self, session):
         super().__init__()
+        start_mappers()
         self.session = session
 
     def add(self, patient):

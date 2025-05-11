@@ -4,8 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
 from hospital.adapters.orm.main_adapter import start_mappers
 
-#Initializing beforehand because of how it needs to be started to avoid errors with the repository
-start_mappers()
+#start_mappers()
 
 from hospital.adapters.orm.metadata import mapper_metadata
 
@@ -24,6 +23,10 @@ def engine():
     start_mappers()
     return engine
 """
+
+@pytest.fixture(scope="session", autouse=True)
+def initialize_mappers():
+    start_mappers()
 
 @pytest.fixture
 def session():
