@@ -7,9 +7,9 @@ import pytest
 from hospital.domain.models.entities.patient import Patient
 from hospital.domain.models.value_objects.people.birth_date import BirthDate
 from hospital.domain.models.value_objects.people.national_id import NationalID
-from hospital.domain.models.value_objects.people.address import PatientAddress
-from hospital.domain.models.value_objects.people.people_id import PatientID
-from hospital.domain.models.value_objects.people.people_name import PatientName
+from hospital.domain.models.value_objects.people.address import Address
+from hospital.domain.models.value_objects.people.people_id import People_ID
+from hospital.domain.models.value_objects.people.people_name import Name
 from hospital.service_layer.patient_services import register_new_patient, register_new_patient_staging
 from hospital.tests.fakes.fake_patient_repository import FakePatientRepository
 from hospital.tests.conftest import session
@@ -33,21 +33,21 @@ def test_registers_new_patient_successfully(session):
         last_name="Perez",
         birth_date=datetime(1996, 10, 10),
         national_id="000-00000000-1",
-        patient_address="52 1st Street, New York, NY, USA",
+        address="52 1st Street, New York, NY, USA",
         repo=repo
     )
 
     assert session.committed is True
     patient_get = repo.get(patient.id)
-    assert patient_get.name == PatientName("Juan", "Perez")
+    assert patient_get.name == Name("Juan", "Perez")
 
 def test_raises_error_if_patient_exists():
     existing_patient = Patient(
-        id=PatientID(1),
-        name=PatientName("Ana", "Gomez"),
+        id=People_ID(1),
+        name=Name("Ana", "Gomez"),
         birth_date=BirthDate(datetime(1996,10,10)),
         national_id=NationalID("000-0000000-1"),
-        address=PatientAddress("52 1st Street, New York, NY, USA")
+        address=Address("52 1st Street, New York, NY, USA")
     )
     session = FakeSession()
     repo = FakePatientRepository(session, [existing_patient])
@@ -59,7 +59,7 @@ def test_raises_error_if_patient_exists():
             last_name="Gomez",
             birth_date=datetime(1996, 10, 10),
             national_id="000-00000000-1",
-            patient_address="52 1st Street, New York, NY, USA",
+            address="52 1st Street, New York, NY, USA",
             repo=repo
         )
 
@@ -74,7 +74,7 @@ def test_delete_existing_patient(session):
         last_name="Pérez",
         birth_date=datetime(1996, 10, 10),
         national_id="000-00000000-1",
-        patient_address="52 1st Street, New York, NY, USA",
+        address="52 1st Street, New York, NY, USA",
         repo=repo
     )
 
@@ -87,4 +87,4 @@ def test_delete_existing_patient(session):
 def test_delete_nonexistent_patient():
     session = FakeSession
     repo = FakePatientRepository(session)
-    assert repo.delete(PatientID(99)) is False
+    assert repo.delete(People_ID(99)) is False
