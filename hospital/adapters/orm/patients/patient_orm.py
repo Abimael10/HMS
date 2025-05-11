@@ -6,7 +6,6 @@ from hospital.domain.models.value_objects.people.address import Address
 from hospital.domain.models.value_objects.people.people_id import People_ID
 from hospital.domain.models.value_objects.people.people_name import Name
 
-
 class PatientORM:
     # These columns match the table definition
     """

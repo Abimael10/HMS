@@ -3,6 +3,10 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
 from hospital.adapters.orm.main_adapter import start_mappers
+
+#Initializing beforehand because of how it needs to be started to avoid errors with the repository
+start_mappers()
+
 from hospital.adapters.orm.metadata import mapper_metadata
 
 #TEST_DB_PATH = "./test.db"
@@ -25,7 +29,6 @@ def engine():
 def session():
     engine = create_engine(f"sqlite:///:memory:", future=True)
     mapper_metadata.create_all(engine)
-    start_mappers()
 
     Session = sessionmaker(bind=engine, future=True)
     sess = Session()

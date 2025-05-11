@@ -2,6 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from hospital.adapters.orm.main_adapter import start_mappers
+
+#Initializing beforehand because of how it needs to be started to avoid errors with the repository
+start_mappers()
+
 from hospital.adapters.orm.metadata import mapper_metadata
 from hospital.adapters.repository.patients.sqlalchemy_respository import SqlAlchemyPatientRepository
 #from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
@@ -13,7 +17,7 @@ def bootstrap():
     connection_string = get_postgres_uri()
     
     engine = create_engine(connection_string, echo=True)
-    start_mappers()
+
     mapper_metadata.create_all(engine)
 
     Session = sessionmaker(bind=engine)
