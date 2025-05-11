@@ -14,7 +14,7 @@ def handle_create_patient(cmd: CreatePatientCommand, repo):
         name=Name(cmd.first_name, cmd.last_name),
         birth_date=BirthDate(cmd.birth_date),
         national_id=NationalID(cmd.national_id),
-        address=Address(cmd.patient_address)
+        address=Address(cmd.address)
     )
 
     repo.add(patient)
