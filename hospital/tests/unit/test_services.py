@@ -5,11 +5,11 @@ import pytest
 #from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
 #from hospital.bootstrap import bootstrap
 from hospital.domain.models.entities.patient import Patient
-from hospital.domain.models.value_objects.patient.birth_date import BirthDate
-from hospital.domain.models.value_objects.patient.national_id import NationalID
-from hospital.domain.models.value_objects.patient.patient_address import PatientAddress
-from hospital.domain.models.value_objects.patient.patient_id import PatientID
-from hospital.domain.models.value_objects.patient.patient_name import PatientName
+from hospital.domain.models.value_objects.people.birth_date import BirthDate
+from hospital.domain.models.value_objects.people.national_id import NationalID
+from hospital.domain.models.value_objects.people.address import PatientAddress
+from hospital.domain.models.value_objects.people.people_id import PatientID
+from hospital.domain.models.value_objects.people.people_name import PatientName
 from hospital.service_layer.patient_services import register_new_patient, register_new_patient_staging
 from hospital.tests.fakes.fake_patient_repository import FakePatientRepository
 from hospital.tests.conftest import session
@@ -47,7 +47,7 @@ def test_raises_error_if_patient_exists():
         name=PatientName("Ana", "Gomez"),
         birth_date=BirthDate(datetime(1996,10,10)),
         national_id=NationalID("000-0000000-1"),
-        patient_address=PatientAddress("52 1st Street, New York, NY, USA")
+        address=PatientAddress("52 1st Street, New York, NY, USA")
     )
     session = FakeSession()
     repo = FakePatientRepository(session, [existing_patient])

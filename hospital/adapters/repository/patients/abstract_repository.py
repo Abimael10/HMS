@@ -13,6 +13,10 @@ class AbstractRepository(ABC):
         raise NotImplemented
 
     @abstractmethod
+    def update(self, patient):
+        raise NotImplemented
+
+    @abstractmethod
     def delete(self, patient_id) -> bool:
         raise NotImplemented
 
@@ -20,5 +24,6 @@ class AbstractRepository(ABC):
     def list(self):
         raise NotImplemented
 
+    @abstractmethod
     def get_by_national_id(self, national_id):
         raise NotImplemented

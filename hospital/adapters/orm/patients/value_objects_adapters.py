@@ -1,7 +1,7 @@
-from hospital.domain.models.value_objects.patient.birth_date import BirthDate
-from hospital.domain.models.value_objects.patient.national_id import NationalID
-from hospital.domain.models.value_objects.patient.patient_address import PatientAddress
-from hospital.domain.models.value_objects.patient.patient_id import PatientID
+from hospital.domain.models.value_objects.people.birth_date import BirthDate
+from hospital.domain.models.value_objects.people.national_id import NationalID
+from hospital.domain.models.value_objects.people.address import Address
+from hospital.domain.models.value_objects.people.people_id import People_ID
 
 from psycopg2.extensions import register_adapter, AsIs
 
@@ -9,7 +9,7 @@ from psycopg2.extensions import register_adapter, AsIs
 class PatientIDAdapter:
     @classmethod
     def adapt(cls, obj):
-        if isinstance(obj, PatientID):
+        if isinstance(obj, People_ID):
             return obj.value
         return obj
 
@@ -30,17 +30,17 @@ class NationalIDAdapter:
 class PatientAddressAdapter:
     @classmethod
     def adapt(cls, obj):
-        if isinstance(obj, PatientAddress):
+        if isinstance(obj, Address):
             return obj.value
         return obj
 
 def register_adapters():
     try:
         # Register adapter for PatientID
-        register_adapter(PatientID, lambda x: AsIs(str(x.value)))
+        register_adapter(People_ID, lambda x: AsIs(str(x.value)))
         register_adapter(BirthDate, lambda x: x.value)
         register_adapter(NationalID, lambda x: x.value)
-        register_adapter(PatientAddress, lambda x: x.value)
+        register_adapter(Address, lambda x: x.value)
     except Exception as e:
         # Log the error but continue - likely we'll need to handle this in the mapper
         print(f"Error registering adapters: {e}")

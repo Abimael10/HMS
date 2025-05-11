@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from hospital.adapters.orm.main_adapter import start_mappers
 from hospital.adapters.orm.metadata import mapper_metadata
-from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
+from hospital.adapters.repository.patients.sqlalchemy_respository import SqlAlchemyPatientRepository
 #from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
 from hospital.service_layer.patients.messagebus import MessageBus
 #from hospital.tests.fakes.fake_patient_repository import FakePatientRepository

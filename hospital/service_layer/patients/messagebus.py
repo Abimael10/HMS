@@ -3,7 +3,6 @@ from hospital.service_layer.patients.commands import CreatePatientCommand, Delet
 from hospital.service_layer.patients.handlers import handle_create_patient, handle_delete_patient, handle_find_patient, \
     handle_update_patient_info
 
-
 class MessageBus:
     def __init__(self, repo, session):
         self.repo = repo

@@ -1,9 +1,11 @@
-from hospital.adapters.repository.abstract_repository import AbstractRepository
+from abc import ABC
+
+from hospital.adapters.repository.patients.abstract_repository import AbstractRepository
 from hospital.domain.models.entities.patient import Patient
-from hospital.domain.models.value_objects.patient.patient_id import PatientID
+from hospital.domain.models.value_objects.people.people_id import People_ID
 from hospital.tests.conftest import session
 
-class FakePatientRepository(AbstractRepository):
+class FakePatientRepository(AbstractRepository, ABC):
     def __init__(self, session, patients=None):
         super().__init__()
         self.session = session
@@ -12,7 +14,7 @@ class FakePatientRepository(AbstractRepository):
     def add(self, patient: Patient):
         self.patients.add(patient)
 
-    def get(self, id: PatientID):
+    def get(self, id: People_ID):
         return next((p for p in self.patients if p.id == id), None)
 
     def delete(self, patient_id) -> bool:

@@ -2,7 +2,7 @@ import pytest
 from fastapi import FastAPI, Depends
 from fastapi.testclient import TestClient
 
-from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
+from hospital.adapters.repository.patients.sqlalchemy_respository import SqlAlchemyPatientRepository
 from hospital.entrypoints.views.patients import create_patient
 from hospital.service_layer.patients.commands import CreatePatientCommand
 from hospital.service_layer.patients.messagebus import MessageBus
@@ -33,7 +33,7 @@ def test_create_patient_e2e(test_client, session):
         "last_name": "Lopez",
         "birth_date": "1996-10-10",
         "national_id": "000-00000000-4",
-        "patient_address": "52 1st Street, New York, NY, USA"
+        "address": "52 1st Street, New York, NY, USA"
     })
 
     print(response.status_code)

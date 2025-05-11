@@ -1,21 +1,20 @@
 from hospital.domain.models.entities.patient import Patient
-from hospital.domain.models.value_objects.patient.birth_date import BirthDate
-from hospital.domain.models.value_objects.patient.national_id import NationalID
-from hospital.domain.models.value_objects.patient.patient_address import PatientAddress
-from hospital.domain.models.value_objects.patient.patient_id import PatientID
-from hospital.domain.models.value_objects.patient.patient_name import PatientName
+from hospital.domain.models.value_objects.people.birth_date import BirthDate
+from hospital.domain.models.value_objects.people.national_id import NationalID
+from hospital.domain.models.value_objects.people.address import Address
+from hospital.domain.models.value_objects.people.people_id import People_ID
+from hospital.domain.models.value_objects.people.people_name import Name
 from hospital.service_layer.patients.commands import DeletePatientCommand, CreatePatientCommand, FindPatientCommand, \
     UpdatePatientInfoCommand
-
 
 def handle_create_patient(cmd: CreatePatientCommand, repo):
 
     patient = Patient(
         #id=None,  # Let SQL auto-generate the ID
-        name=PatientName(cmd.first_name, cmd.last_name),
+        name=Name(cmd.first_name, cmd.last_name),
         birth_date=BirthDate(cmd.birth_date),
         national_id=NationalID(cmd.national_id),
-        patient_address=PatientAddress(cmd.patient_address)
+        address=Address(cmd.patient_address)
     )
 
     repo.add(patient)
@@ -32,18 +31,18 @@ def handle_find_patient(cmd: FindPatientCommand, repo):
 def handle_update_patient_info(cmd: UpdatePatientInfoCommand, repo):
 
     patient = Patient(
-        id=PatientID(cmd.id),
-        name=PatientName(cmd.first_name, cmd.last_name),
+        id=People_ID(cmd.id),
+        name=Name(cmd.first_name, cmd.last_name),
         birth_date=BirthDate(cmd.birth_date),
         national_id=NationalID(cmd.national_id),
-        patient_address=PatientAddress(cmd.patient_address)
+        address=Address(cmd.address)
     )
 
     repo.update(patient)
 
 def handle_delete_patient(cmd: DeletePatientCommand, repo):
     # Create a proper PatientID value object from the integer
-    patient_id = PatientID(cmd.id)
+    patient_id = People_ID(cmd.id)
     deleted = repo.delete(patient_id)
     if not deleted:
         raise ValueError("Patient not found")

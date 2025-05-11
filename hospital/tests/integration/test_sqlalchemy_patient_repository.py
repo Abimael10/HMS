@@ -4,12 +4,12 @@ import pytest
 
 from hospital.bootstrap import bootstrap
 from hospital.domain.models.entities.patient import Patient
-from hospital.domain.models.value_objects.patient.birth_date import BirthDate
-from hospital.domain.models.value_objects.patient.national_id import NationalID
-from hospital.domain.models.value_objects.patient.patient_address import PatientAddress
-from hospital.domain.models.value_objects.patient.patient_id import PatientID
-from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
-from hospital.domain.models.value_objects.patient.patient_name import PatientName
+from hospital.domain.models.value_objects.people.birth_date import BirthDate
+from hospital.domain.models.value_objects.people.national_id import NationalID
+from hospital.domain.models.value_objects.people.address import Address
+from hospital.domain.models.value_objects.people.people_id import People_ID
+from hospital.adapters.repository.patients.sqlalchemy_respository import SqlAlchemyPatientRepository
+from hospital.domain.models.value_objects.people.people_name import Name
 from hospital.service_layer.patient_services import register_new_patient
 from hospital.tests.conftest import session
 #from hospital.adapters.orm.models import PatientORM
@@ -24,12 +24,12 @@ def test_repository_can_add_and_retrieve_patient(session):
         last_name="Leonhart",
         birth_date=datetime(1996, 10, 10),
         national_id="000-00000000-3",
-        patient_address="52 1st Street, New York, NY, USA",
+        address="52 1st Street, New York, NY, USA",
         repo=repo,
         id=3
     )
 
-    retrieved = repo.get(PatientID(1))
+    retrieved = repo.get(People_ID(1))
 
     assert isinstance(retrieved, Patient)
     assert retrieved.name.first_name == "Annie"

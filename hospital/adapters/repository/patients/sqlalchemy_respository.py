@@ -1,11 +1,9 @@
-from hospital.adapters.orm.patients import patient_orm
 from hospital.domain.models.entities.patient import Patient
-from hospital.adapters.repository.abstract_repository import AbstractRepository
+from hospital.adapters.repository.patients.abstract_repository import AbstractRepository
 from hospital.adapters.orm.main_adapter import PatientORM
-from hospital.domain.models.value_objects.patient.patient_id import PatientID
 
 class SqlAlchemyPatientRepository(AbstractRepository):
-    def __init__(self, session, patients=None):
+    def __init__(self, session):
         super().__init__()
         self.session = session
 
@@ -39,7 +37,7 @@ class SqlAlchemyPatientRepository(AbstractRepository):
         orm_patient.last_name = patient.name.last_name
         orm_patient.birth_date = patient.birth_date.value
         orm_patient.national_id = patient.national_id.value
-        orm_patient.patient_address = patient.patient_address.value
+        orm_patient.patient_address = patient.address.value
 
     def delete(self, patient_id) -> bool:
         patient_orm = self.session.query(PatientORM).filter_by(id=patient_id.value).first()

@@ -1,18 +1,16 @@
 from datetime import date
 
-from hospital.adapters.repository.abstract_repository import AbstractRepository
-from hospital.adapters.repository.sqlalchemy_respository import SqlAlchemyPatientRepository
+from hospital.adapters.repository.patients.abstract_repository import AbstractRepository
 from hospital.domain.models.entities.patient import Patient
-from hospital.domain.models.value_objects.patient.birth_date import BirthDate
-from hospital.domain.models.value_objects.patient.national_id import NationalID
-from hospital.domain.models.value_objects.patient.patient_address import PatientAddress
-from hospital.domain.models.value_objects.patient.patient_id import PatientID
-from hospital.domain.models.value_objects.patient.patient_name import PatientName
+from hospital.domain.models.value_objects.people.birth_date import BirthDate
+from hospital.domain.models.value_objects.people.national_id import NationalID
+from hospital.domain.models.value_objects.people.address import Address
+from hospital.domain.models.value_objects.people.people_id import People_ID
+from hospital.domain.models.value_objects.people.people_name import Name
 
+def register_new_patient(id: int, first_name: str, last_name: str, birth_date: date, national_id: str, address: str, repo: AbstractRepository):
 
-def register_new_patient(id: int, first_name: str, last_name: str, birth_date: date, national_id: str, patient_address: str, repo: AbstractRepository):
-
-    if id is not None and repo.get(PatientID(id)):
+    if id is not None and repo.get(People_ID(id)):
         raise ValueError("Patient ID already exists")
 
     # Also check if the national ID exists
@@ -20,10 +18,10 @@ def register_new_patient(id: int, first_name: str, last_name: str, birth_date: d
         raise ValueError("National ID already exists")
 
     new_patient = Patient(
-        name=PatientName(first_name, last_name),
+        name=Name(first_name, last_name),
         birth_date=BirthDate(birth_date),
         national_id=NationalID(national_id),
-        patient_address=PatientAddress(patient_address)
+        address=Address(address)
         #id=PatientID(id) if id is not None else None
     )
 
@@ -31,8 +29,8 @@ def register_new_patient(id: int, first_name: str, last_name: str, birth_date: d
     repo.session.commit()
     return new_patient
 
-def register_new_patient_staging(id: int, first_name: str, last_name: str, birth_date: date, national_id: str, patient_address: str, repo: AbstractRepository):
-    if id is not None and repo.get(PatientID(id)):
+def register_new_patient_staging(id: int, first_name: str, last_name: str, birth_date: date, national_id: str, address: str, repo: AbstractRepository):
+    if id is not None and repo.get(People_ID(id)):
         raise ValueError("Patient ID already exists")
         
     # Also check if the national ID exists
@@ -40,10 +38,10 @@ def register_new_patient_staging(id: int, first_name: str, last_name: str, birth
         raise ValueError("National ID already exists")
 
     new_patient = Patient(
-        name=PatientName(first_name, last_name),
+        name=Name(first_name, last_name),
         birth_date=BirthDate(birth_date),
         national_id=NationalID(national_id),
-        patient_address=PatientAddress(patient_address)
+        address=Address(address)
         #id=PatientID(id) if id is not None else None
     )
 

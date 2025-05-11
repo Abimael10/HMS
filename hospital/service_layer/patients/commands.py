@@ -6,7 +6,7 @@ class CreatePatientCommand(BaseModel):
     last_name: str
     birth_date: date
     national_id: str
-    patient_address: str
+    address: str
 
 class FindPatientCommand(BaseModel):
     national_id: str
@@ -17,7 +17,7 @@ class UpdatePatientInfoCommand(BaseModel):
     last_name: str
     birth_date: date
     national_id: str
-    patient_address: str
+    address: str
 
 class DeletePatientCommand(BaseModel):
     id: int

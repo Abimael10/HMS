@@ -25,7 +25,7 @@ class Bed:
 
     def discharge(self):
         if self._current_admission is None:
-            raise ValueError("No patient to discharge")
+            raise ValueError("No people to discharge")
         self._current_admission = None
 
     @property
