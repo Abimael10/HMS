@@ -37,7 +37,7 @@ class SqlAlchemyPatientRepository(AbstractRepository):
         orm_patient.last_name = patient.name.last_name
         orm_patient.birth_date = patient.birth_date.value
         orm_patient.national_id = patient.national_id.value
-        orm_patient.patient_address = patient.address.value
+        orm_patient.address = patient.address.value
 
     def delete(self, patient_id) -> bool:
         patient_orm = self.session.query(PatientORM).filter_by(id=patient_id.value).first()

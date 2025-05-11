@@ -6,7 +6,7 @@ from hospital.domain.models.value_objects.people.people_id import People_ID
 from psycopg2.extensions import register_adapter, AsIs
 
 # Create SQLAlchemy type adapters for our domain value objects
-class PatientIDAdapter:
+class PeopleIDAdapter:
     @classmethod
     def adapt(cls, obj):
         if isinstance(obj, People_ID):
@@ -27,7 +27,7 @@ class NationalIDAdapter:
             return obj.value
         return obj
 
-class PatientAddressAdapter:
+class AddressAdapter:
     @classmethod
     def adapt(cls, obj):
         if isinstance(obj, Address):

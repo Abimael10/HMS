@@ -9,5 +9,5 @@ patients_schema = Table(
     Column("last_name", String(255)),
     Column("birth_date", Date),
     Column("national_id", String(50), unique=True),
-    Column("patient_address", String(255))
+    Column("address", String(255))
 )

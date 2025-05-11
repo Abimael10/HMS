@@ -26,10 +26,10 @@ def test_repository_can_add_and_retrieve_patient(session):
         national_id="000-00000000-3",
         address="52 1st Street, New York, NY, USA",
         repo=repo,
-        id=3
+        id=99
     )
 
-    retrieved = repo.get(People_ID(1))
+    retrieved = repo.get(People_ID(99))
 
     assert isinstance(retrieved, Patient)
     assert retrieved.name.first_name == "Annie"
@@ -40,7 +40,7 @@ def test_repository_can_add_and_retrieve_patient(session):
     assert len(all_patients) >= 1
 
     # Clean up after test
-    #repo.delete(PatientID(1))
+    repo.delete(People_ID(99))
     session.commit()
 
 def test_repository_delete_patient(session):
@@ -49,34 +49,34 @@ def test_repository_delete_patient(session):
     repo = SqlAlchemyPatientRepository(session)
 
     register_new_patient(
-        id=1,
+        id=99,
         first_name="Juan",
         last_name="Santos",
         birth_date=datetime(1996, 10, 10),
         national_id="000-00000000-1",
-        patient_address="52 1st Street, New York, NY, USA",
+        address="52 1st Street, New York, NY, USA",
         repo=repo
     )
 
-    assert repo.get(PatientID(1)) is not None
-    repo.delete(PatientID(1))
+    assert repo.get(People_ID(88)) is not None
+    repo.delete(People_ID(88))
     session.commit()
-    assert repo.get(PatientID(1)) is None
+    assert repo.get(People_ID(88)) is None
 
 def test_repository_do_not_add_the_same_patient_more_than_once(session):
 
     existing_patient = Patient(
-        id=PatientID(1),
-        name=PatientName("Eren", "Jaeger"),
+        id=People_ID(77),
+        name=Name("Eren", "Jaeger"),
         birth_date=BirthDate(datetime(1996,10,10)),
         national_id=NationalID("000-0000000-1"),
-        patient_address=PatientAddress("52 1st Street, New York, NY, USA")
+        address=Address("52 1st Street, New York, NY, USA")
     )
 
     session = bootstrap().session
-    repo = SqlAlchemyPatientRepository(session, [existing_patient])
+    repo = SqlAlchemyPatientRepository(session)
 
-    retrieved = repo.get(PatientID(1))
+    retrieved = repo.get(People_ID(77))
 
     assert isinstance(retrieved, Patient)
     assert retrieved.name.first_name == "Eren"
@@ -93,6 +93,6 @@ def test_repository_do_not_add_the_same_patient_more_than_once(session):
             last_name="Jaeger",
             birth_date=datetime(1996, 10, 10),
             national_id="000-00000000-1",
-            patient_address="52 1st Street, New York, NY, USA",
+            address="52 1st Street, New York, NY, USA",
             repo=repo
         )

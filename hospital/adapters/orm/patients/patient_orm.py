@@ -15,7 +15,7 @@ class PatientORM:
     last_name = None
     birth_date = None
     national_id = None
-    patient_address = None
+    address = None
     """
 
     def __init__(self, id=None, first_name=None, last_name=None, birth_date=None, national_id=None, address=None):
