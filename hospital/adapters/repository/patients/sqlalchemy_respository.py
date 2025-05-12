@@ -6,6 +6,7 @@ from hospital.adapters.orm.main_adapter import PatientORM, start_mappers
 class SqlAlchemyPatientRepository(AbstractRepository):
     def __init__(self, session):
         super().__init__()
+        #Start the mapping before any query is ran to avoid runtime errors
         start_mappers()
         self.session = session
 
