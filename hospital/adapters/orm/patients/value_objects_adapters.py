@@ -36,11 +36,11 @@ class AddressAdapter:
 
 def register_adapters():
     try:
-        # Register adapter for PatientID
+        # Register adapter for Patient ID
         register_adapter(People_ID, lambda x: AsIs(str(x.value)))
         register_adapter(BirthDate, lambda x: x.value)
         register_adapter(NationalID, lambda x: x.value)
         register_adapter(Address, lambda x: x.value)
     except Exception as e:
-        # Log the error but continue - likely we'll need to handle this in the mapper
+        # Log the error but continue... likely we'll need to handle this in the mapper
         print(f"Error registering adapters: {e}")
