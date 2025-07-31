@@ -42,7 +42,7 @@ Adjust the PostgreSQL connection string according to your database setup.
 To start the application, run:
 
 ```bash
-python -m hospital.entrypoints.main
+python fresh_start.py
 ```
 
 The API will be available at http://localhost:8001.
