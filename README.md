@@ -1,6 +1,8 @@
 # Hospital Management System (HMS)
 
-A hospital management system built with FastAPI, SQLAlchemy, and PostgreSQL.
+A hospital management system built with FastAPI, SQLAlchemy, and PostgreSQL. The idea behind this repo is to find a common ground for scalable architecture (at least with Python and this specific library) and not just build the system itself since (me personally) do not have a market to make business in this domain.
+
+So far the only working component is the patients CRUD, with some other either started but unfinished and not a working system to claim it an MVP. NOTE: This is far from being an MVP since I just put it up here as a reference for future implementations.
 
 ## Installation
 
@@ -29,7 +31,7 @@ pip install -r requirements.txt
 Create a `.env` file in the root directory with the following variables:
 
 ```
-API_URL=http://localhost:8000
+API_URL=API URL LOCAL OR PROD
 POSTGRES_URI=postgresql://username:password@localhost:5432/hospital_db
 ```
 
@@ -43,7 +45,7 @@ To start the application, run:
 python -m hospital.entrypoints.main
 ```
 
-The API will be available at http://localhost:8000.
+The API will be available at http://localhost:8001.
 
 ## Running Tests
 
